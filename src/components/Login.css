@@ -1,0 +1,57 @@
+.container {
+    position: relative;
+    width: 500px;
+    height: 100vh;
+    margin: 0 auto;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    
+}
+
+.username {
+    align-self: center;
+    padding: 5px;
+}
+
+.password {
+    align-self: center;
+    padding: 5px;
+}
+
+.loginButton {
+    align-self: center;
+    padding: 5px;
+}
+
+.inputLogin{
+    width: 350px;
+}
+
+.checkbox {
+    display: flex;
+    align-self: center;
+    font-size: 13px;
+}
+
+#myVideo {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
+    filter: blur(2px);
+    -webkit-filter: blur(5px);
+  }
+
+  .login-box {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    background-color: #e4e5e8bb;
+    justify-content: center;
+    border-radius: 4px;
+
+  }
+
+ 
