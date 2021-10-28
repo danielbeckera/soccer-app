@@ -64,31 +64,46 @@ a {
 
 .inputsFormCreateAccount-1 {
   display: flex;
-  justify-content: space-between;
-  padding: 30px;
+  align-items: flex-end;
 }
 
 .inputsFormCreateAccount-2 {
   display: flex;
-  padding: 30px;
+  padding: 8px;
 }
 
-.nomeForm {
+.inputsFormCreateAccount-3 {
+  display: flex;
+}
+
+.inputsFormCreateAccount-4 {
+  display: flex;
+}
+
+/* .nomeForm {
   width: 150px;
+  margin-right: 30px;
+} */
+
+/* .sobrenomeForm {
+  margin-left: 30px;
+  width: 150px;
+} */
+
+/* .emailForm {
+  width: 150px;
+  margin-right: 30px;
+} */
+
+/* .passwordForm {
+  width: 150px;
+  margin-left: 30px;
+} */
+
+#emailUser {
   margin-right: 30px;
 }
 
-.sobrenomeForm {
-  margin-left: 30px;
-  width: 150px;
-}
-
-.emailForm {
-  width: 150px;
-  margin-right: 30px;
-}
-
-.passwordForm {
-  width: 150px;
-  margin-left: 30px;
+#nome {
+  margin-right: 10px;
 }

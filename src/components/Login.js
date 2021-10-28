@@ -8,6 +8,10 @@ import {
   DialogContentText,
   DialogActions,
   Dialog,
+  Grid,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import "./Login.css";
 import video from "../assets/video-login.mp4";
@@ -17,13 +21,13 @@ export default function Login(props) {
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
 
-  function onUsernameChange(event) {
-    setLogin(event.target.value);
-  }
+  const onUsernameChange = (e) => {
+    setLogin(e.target.value);
+  };
 
-  function onPasswordChange(event) {
-    setPassword(event.target.value);
-  }
+  const onPasswordChange = (e) => {
+    setPassword(e.target.value);
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -43,52 +47,73 @@ export default function Login(props) {
           <DialogTitle>Create an account</DialogTitle>
           <DialogContent>
             <DialogContentText>
-              Please fill all the necessary informations.
+              Please fill all the necessary informations to register.
             </DialogContentText>
             <div className="inputsFormCreateAccount-1">
-              <div className="emailForm">
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  id="name"
-                  label="Email Address"
-                  type="email"
-                  fullWidth
-                  variant="standard"
-                />
-              </div>
-              <div className="passwordForm">
-                <TextField
-                  margin="dense"
-                  id="name"
-                  label="Password"
-                  type="password"
-                  fullWidth
-                  variant="standard"
-                />
-              </div>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="nome"
+                label="Nome"
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                margin="dense"
+                id="sobrenome"
+                label="Sobrenome"
+                type="text"
+                fullWidth
+                variant="standard"
+              />
             </div>
             <div className="inputsFormCreateAccount-2">
-              <div class="nomeForm">
-                <TextField
-                  id="nomeFormLogin"
-                  margin="dense"
-                  label="Nome"
-                  type="password"
-                  fullWidth
-                  variant="standard"
-                />
-              </div>
-              <div className="sobrenomeForm">
-                <TextField
-                  margin="dense"
-                  id="name"
-                  label="Sobrenome"
-                  type="password"
-                  fullWidth
-                  variant="standard"
-                />
-              </div>
+              <TextField
+                id="estado"
+                margin="dense"
+                label="Estado"
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+
+              <TextField
+                margin="dense"
+                id="cidade"
+                label="Cidade"
+                type="text"
+                fullWidth
+                variant="standard"
+              />
+            </div>
+            <div className="inputsFormCreateAccount-3">
+              <TextField
+                margin="dense"
+                id="email"
+                label="Email"
+                type="email"
+                fullWidth
+                variant="standard"
+              />
+            </div>
+            <div className="inputsFormCreateAccount-4">
+              <TextField
+                margin="dense"
+                id="password"
+                label="Password"
+                type="password"
+                fullWidth
+                variant="standard"
+              />
+              <TextField
+                margin="dense"
+                id="password"
+                label="Password confirmation"
+                type="password"
+                fullWidth
+                variant="standard"
+              />
             </div>
           </DialogContent>
           <DialogActions>
