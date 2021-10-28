@@ -73,7 +73,6 @@ export default function Login(props) {
                 <TextField
                   id="nomeFormLogin"
                   margin="dense"
-                  id="name"
                   label="Nome"
                   type="password"
                   fullWidth
