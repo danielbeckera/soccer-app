@@ -12,6 +12,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Box,
 } from "@mui/material";
 import "./Login.css";
 import video from "../assets/video-login.mp4";
@@ -50,70 +51,83 @@ export default function Login(props) {
               Please fill all the necessary informations to register.
             </DialogContentText>
             <div className="inputsFormCreateAccount-1">
-              <TextField
-                autoFocus
-                margin="dense"
-                id="nome"
-                label="Nome"
-                type="text"
-                fullWidth
-                variant="standard"
-              />
-              <TextField
-                margin="dense"
-                id="sobrenome"
-                label="Sobrenome"
-                type="text"
-                fullWidth
-                variant="standard"
-              />
+              <Box m={1}>
+                <TextField
+                  autoFocus
+                  margin="dense"
+                  id="nome"
+                  label="Nome"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                />
+              </Box>
+              <Box m={1}>
+                <TextField
+                  margin="dense"
+                  id="sobrenome"
+                  label="Sobrenome"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                />
+              </Box>
             </div>
             <div className="inputsFormCreateAccount-2">
-              <TextField
-                id="estado"
-                margin="dense"
-                label="Estado"
-                type="text"
-                fullWidth
-                variant="standard"
-              />
-
-              <TextField
-                margin="dense"
-                id="cidade"
-                label="Cidade"
-                type="text"
-                fullWidth
-                variant="standard"
-              />
+              <Box m={1}>
+                <TextField
+                  id="estado"
+                  margin="dense"
+                  label="Estado"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                />
+              </Box>
+              <Box m={1}>
+                <TextField
+                  margin="dense"
+                  id="cidade"
+                  label="Cidade"
+                  type="text"
+                  fullWidth
+                  variant="standard"
+                />
+              </Box>
             </div>
             <div className="inputsFormCreateAccount-3">
-              <TextField
-                margin="dense"
-                id="email"
-                label="Email"
-                type="email"
-                fullWidth
-                variant="standard"
-              />
+              <Grid container justifyContent="center">
+                <Box m={1}>
+                  <TextField
+                    id="email"
+                    label="Email"
+                    type="email"
+                    variant="standard"
+                  />
+                </Box>
+              </Grid>
             </div>
             <div className="inputsFormCreateAccount-4">
-              <TextField
-                margin="dense"
-                id="password"
-                label="Password"
-                type="password"
-                fullWidth
-                variant="standard"
-              />
-              <TextField
-                margin="dense"
-                id="password"
-                label="Password confirmation"
-                type="password"
-                fullWidth
-                variant="standard"
-              />
+              <Box m={1}>
+                <TextField
+                  margin="dense"
+                  id="password"
+                  label="Password"
+                  type="password"
+                  fullWidth
+                  variant="standard"
+                />
+              </Box>
+              <Box m={1}>
+                <TextField
+                  margin="dense"
+                  id="password"
+                  label="Password confirmation"
+                  type="password"
+                  fullWidth
+                  variant="standard"
+                />
+              </Box>
             </div>
           </DialogContent>
           <DialogActions>
