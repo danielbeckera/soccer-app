@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   TextField,
@@ -14,9 +14,11 @@ import {
   Box,
   FormControl,
 } from "@mui/material";
+import axios from "axios";
 
 export default function SignupModal(props) {
   const [open, setOpen] = useState(false);
+  const [estados, setEstados] = useState([]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -25,6 +27,17 @@ export default function SignupModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    async function getStates() {
+      const response = await fetch(
+        "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
+      );
+      const data = await response.json();
+      setEstados(data);
+    }
+    getStates();
+  }, []);
 
   return (
     <Dialog
@@ -58,8 +71,13 @@ export default function SignupModal(props) {
           </Box>
         </div>
         <div className="inputsFormCreateAccount-2">
-          <Box m={1}>
-            <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <Box>
+            <FormControl
+              style={{ minWidth: 200 }}
+              variant="standard"
+              sx={{ m: 1, minWidth: 120 }}
+              size="small"
+            >
               <InputLabel id="demo-simple-select-autowidth-label">
                 Estado
               </InputLabel>
@@ -71,16 +89,13 @@ export default function SignupModal(props) {
                 autoWidth
                 label="Age"
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
-                <MenuItem value={10}>Twenty</MenuItem>
-                <MenuItem value={21}>Twenty one</MenuItem>
-                <MenuItem value={22}>Twenty one and a half</MenuItem>
+                {estados.map((estado) => {
+                  return <MenuItem value={estado.nome}>{estado.nome}</MenuItem>;
+                })}
               </Select>
             </FormControl>
           </Box>
-          <Box m={1}>
+          <Box>
             <TextField
               margin="dense"
               id="cidade"
@@ -93,6 +108,7 @@ export default function SignupModal(props) {
         <div className="inputsFormCreateAccount-3">
           <Grid container justifyContent="center">
             <TextField
+              style={{ minWidth: 410 }}
               margin="dense"
               id="email"
               label="Email"
