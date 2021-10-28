@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   Button,
   TextField,
-  Checkbox,
   DialogTitle,
   DialogContent,
   DialogContentText,
@@ -16,7 +15,7 @@ import {
   FormControl,
 } from "@mui/material";
 
-export default function SignupModal(visibility, onOpen, onClose) {
+export default function SignupModal(props) {
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -29,7 +28,7 @@ export default function SignupModal(visibility, onOpen, onClose) {
 
   return (
     <Dialog
-      sx={{ visibility: { "visible" } }}
+      sx={{ visibility: props.visibleOn }}
       open={handleClickOpen}
       onClose={handleClose}
     >
@@ -124,8 +123,8 @@ export default function SignupModal(visibility, onOpen, onClose) {
         </div>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>Cancel</Button>
-        <Button onClick={handleClose}>Create account</Button>
+        <Button onClick={props.handleClose}>Cancel</Button>
+        <Button onClick={props.handleClose}>Create account</Button>
       </DialogActions>
     </Dialog>
   );

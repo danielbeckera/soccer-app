@@ -16,11 +16,13 @@ import {
 } from "@mui/material";
 import "./Login.css";
 import video from "../assets/video-login.mp4";
+import SignupModal from "./SignupModal";
 
 export default function Login(props) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
+  const [visible, setVisible] = useState("hidden");
 
   const onUsernameChange = (e) => {
     setLogin(e.target.value);
@@ -31,11 +33,11 @@ export default function Login(props) {
   };
 
   const handleClickOpen = () => {
-    setOpen(true);
+    setVisible("visible");
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setVisible("hidden");
   };
 
   return (
@@ -44,97 +46,7 @@ export default function Login(props) {
         <source src={video} type="video/mp4"></source>
       </video>
       <div className="container">
-        <Dialog open={open} onClose={handleClose}>
-          <DialogTitle>Create an account</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Please fill all the necessary informations to register.
-            </DialogContentText>
-            <div className="inputsFormCreateAccount-1">
-              <Box m={1}>
-                <TextField
-                  autoFocus
-                  margin="dense"
-                  id="nome"
-                  label="Nome"
-                  type="text"
-                  fullWidth
-                  variant="standard"
-                />
-              </Box>
-              <Box m={1}>
-                <TextField
-                  margin="dense"
-                  id="sobrenome"
-                  label="Sobrenome"
-                  type="text"
-                  fullWidth
-                  variant="standard"
-                />
-              </Box>
-            </div>
-            <div className="inputsFormCreateAccount-2">
-              <Box m={1}>
-                <TextField
-                  id="estado"
-                  margin="dense"
-                  label="Estado"
-                  type="text"
-                  fullWidth
-                  variant="standard"
-                />
-              </Box>
-              <Box m={1}>
-                <TextField
-                  margin="dense"
-                  id="cidade"
-                  label="Cidade"
-                  type="text"
-                  fullWidth
-                  variant="standard"
-                />
-              </Box>
-            </div>
-            <div className="inputsFormCreateAccount-3">
-              <Grid container justifyContent="center">
-                <Box m={1}>
-                  <TextField
-                    id="email"
-                    label="Email"
-                    type="email"
-                    variant="standard"
-                  />
-                </Box>
-              </Grid>
-            </div>
-            <div className="inputsFormCreateAccount-4">
-              <Box m={1}>
-                <TextField
-                  margin="dense"
-                  id="password"
-                  label="Password"
-                  type="password"
-                  fullWidth
-                  variant="standard"
-                />
-              </Box>
-              <Box m={1}>
-                <TextField
-                  margin="dense"
-                  id="password"
-                  label="Password confirmation"
-                  type="password"
-                  fullWidth
-                  variant="standard"
-                />
-              </Box>
-            </div>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleClose}>Create account</Button>
-          </DialogActions>
-        </Dialog>
+        <SignupModal handleClose={handleClose} visibleOn={visible} />
         <div className="login-box">
           <div className="username">
             <TextField
