@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, TextField, Checkbox } from '@mui/material';
 import "./Login.css"
-import video from "./video-login.mp4"
+import video from "../assets/video-login.mp4"
 
 
 export default function Login(props) {
@@ -30,7 +30,7 @@ export default function Login(props) {
                         <TextField onChange={onPasswordChange} className="inputLogin"   id="outlined-basic" label="Password" type='password' variant="outlined" />
                     </div>
                     <div className="loginButton">
-                        <Button className="inputLogin"  variant="contained">LOGIN</Button>
+                        <Button size="large" className="inputLogin"  variant="contained">LOGIN</Button>
                     </div>
                     <div className="checkbox">
                         <Checkbox></Checkbox>
