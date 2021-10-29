@@ -16,7 +16,7 @@ import {
   Alert,
 } from "@mui/material";
 import "./Login.css";
-// import video from "../assets/video-login.mp4";
+import video from "../assets/video.mp4";
 import SignupModal from "./SignupModal";
 import { signInWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../firebase-config";
@@ -70,7 +70,7 @@ export default function Login(props) {
               className="inputLogin"
               size="large"
               id="outlined-basic"
-              label="Username"
+              label="Usuário"
               variant="outlined"
             />
           </div>
@@ -79,7 +79,7 @@ export default function Login(props) {
               onChange={onPasswordChange}
               className="inputLogin"
               id="outlined-basic"
-              label="Password"
+              label="Senha"
               type="password"
               variant="outlined"
             />
@@ -99,17 +99,17 @@ export default function Login(props) {
               onClick={loginUser}
               disabled={login === "" || password === ""}
             >
-              LOGIN
+              ENTRAR
             </Button>
           </div>
 
           <div className="checkbox">
             <Checkbox></Checkbox>
-            <p id="testee">Remember me</p>
+            <p id="testee">Manter conectado</p>
           </div>
           <div className="signup">
             <p>
-              Don't have an account yet?{" "}
+              Ainda não possui uma conta?{" "}
               <a href="#" onClick={handleClickOpen}>
                 <span>
                   <strong>Sign up now</strong>

@@ -13,6 +13,7 @@ import {
   MenuItem,
   Box,
   FormControl,
+  Alert,
 } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
@@ -29,6 +30,7 @@ export default function SignupModal(props) {
   const [primeiraSenha, setPrimeiraSenha] = useState("");
   const [segundaSenha, setSegundaSenha] = useState("");
   const [email, setEmail] = useState("");
+  const [senhasIguais, setSenhasIguais] = useState("hidden");
   // Seleção de nome e sobrenome modal
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
@@ -45,6 +47,18 @@ export default function SignupModal(props) {
       console.log(error.message);
     }
   };
+
+  const handleSamePassword = () => {
+    if (primeiraSenha === segundaSenha) {
+      setSenhasIguais("hidden");
+    } else {
+      setSenhasIguais("show");
+    }
+  };
+
+  useEffect(() => {
+    handleSamePassword();
+  }, [segundaSenha]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -220,10 +234,27 @@ export default function SignupModal(props) {
             />
           </Box>
         </div>
+        <Alert
+          sx={{ visibility: senhasIguais }}
+          variant="filled"
+          severity="error"
+        >
+          As senhas devem ser iguais.
+        </Alert>
       </DialogContent>
+
       <DialogActions>
         <Button onClick={props.handleClose}>Cancel</Button>
-        <Button onClick={register}>Create account</Button>
+        <Button
+          disabled={
+            primeiraSenha != segundaSenha ||
+            primeiraSenha === "" ||
+            segundaSenha === ""
+          }
+          onClick={register}
+        >
+          Create account
+        </Button>
       </DialogActions>
     </Dialog>
   );
