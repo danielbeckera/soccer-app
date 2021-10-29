@@ -21,7 +21,7 @@ import SignupModal from "./SignupModal";
 export default function Login(props) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [visible, setVisible] = useState("hidden");
+  const [visible, setVisible] = useState(false);
 
   const onUsernameChange = (e) => {
     setLogin(e.target.value);
@@ -32,11 +32,11 @@ export default function Login(props) {
   };
 
   const handleClickOpen = () => {
-    setVisible("visible");
+    setVisible(true);
   };
 
   const handleClose = () => {
-    setVisible("hidden");
+    setVisible(false);
   };
 
   return (

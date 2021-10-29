@@ -18,7 +18,7 @@ import axios from "axios";
 
 export default function SignupModal(props) {
   // Abertura do modal
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(props.visibleOn);
   // Seleção do estado/cidade
   const [estados, setEstados] = useState([]);
   const [estadoSelecionado, setEstadoSelecionado] = useState("");
@@ -36,6 +36,10 @@ export default function SignupModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  useEffect(() => {
+    setOpen(props.visibleOn);
+  }, [props.visibleOn]);
 
   const handleChangeEstado = (e) => {
     setEstadoSelecionado(e.target.value);
@@ -80,11 +84,7 @@ export default function SignupModal(props) {
   }, []);
 
   return (
-    <Dialog
-      sx={{ visibility: props.visibleOn }}
-      open={handleClickOpen}
-      onClose={handleClose}
-    >
+    <Dialog open={open} onClose={handleClose}>
       <DialogTitle>Crie sua conta!</DialogTitle>
       <DialogContent>
         <DialogContentText>Preencha os dados obrigatórios.</DialogContentText>
@@ -161,7 +161,6 @@ export default function SignupModal(props) {
         <div className="inputsFormCreateAccount-3">
           <Grid container justifyContent="center">
             <TextField
-              autoFocus
               style={{ minWidth: 410 }}
               margin="dense"
               id="email"
@@ -175,8 +174,6 @@ export default function SignupModal(props) {
         <div className="inputsFormCreateAccount-4">
           <Box m={1}>
             <TextField
-              autoFocus
-              key="editor2"
               margin="dense"
               id="password"
               label="Password"
@@ -187,8 +184,6 @@ export default function SignupModal(props) {
           </Box>
           <Box m={1}>
             <TextField
-              autoFocus
-              key="editor1"
               margin="dense"
               id="password"
               label="Password confirmation"
