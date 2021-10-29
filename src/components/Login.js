@@ -26,6 +26,7 @@ export default function Login(props) {
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
   const [erroSenha, setErroSenha] = useState("hidden");
+  const [erroAuth, setErroAuth] = useState("");
 
   const onUsernameChange = (e) => {
     setLogin(e.target.value);
@@ -49,6 +50,7 @@ export default function Login(props) {
       console.log(user);
     } catch (error) {
       setErroSenha("show");
+      setErroAuth(error.message);
       console.log(error.message);
     }
   };
@@ -86,7 +88,7 @@ export default function Login(props) {
               variant="filled"
               severity="error"
             >
-              Senha incorreta.
+              {erroAuth}
             </Alert>
           </div>
           <div className="loginButton">
