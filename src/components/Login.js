@@ -21,7 +21,6 @@ import SignupModal from "./SignupModal";
 export default function Login(props) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
-  const [open, setOpen] = useState(false);
   const [visible, setVisible] = useState("hidden");
 
   const onUsernameChange = (e) => {
@@ -46,6 +45,7 @@ export default function Login(props) {
         <source src={video} type="video/mp4"></source>
       </video>
       <div className="container">
+        {/* Modal de criação de conta */}
         <SignupModal handleClose={handleClose} visibleOn={visible} />
         <div className="login-box">
           <div className="username">

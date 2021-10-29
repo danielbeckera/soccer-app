@@ -17,8 +17,17 @@ import {
 import axios from "axios";
 
 export default function SignupModal(props) {
+  // Abertura do modal
   const [open, setOpen] = useState(false);
+  // Seleção do estado/cidade
   const [estados, setEstados] = useState([]);
+  const [estadoSelecionado, setEstadoSelecionado] = useState("");
+  const [cidadesDoEstado, setCidadesDoEstado] = useState([]);
+  const [cidadeSelecionada, setCidadeSelecionada] = useState("");
+  // Seleção de senhas do modal
+  const [primeiraSenha, setPrimeiraSenha] = useState("");
+  const [segundaSenha, setSegundaSenha] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,6 +36,37 @@ export default function SignupModal(props) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleChangeEstado = (e) => {
+    setEstadoSelecionado(e.target.value);
+  };
+
+  const handleChangeCidade = (e) => {
+    setCidadeSelecionada(e.target.value);
+  };
+
+  const handleChangePrimeiraSenha = (e) => {
+    setPrimeiraSenha(e.target.value);
+  };
+
+  const handleChangeSegundaSenha = (e) => {
+    setSegundaSenha(e.target.value);
+  };
+
+  const handleChangeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+
+  useEffect(() => {
+    async function getCities() {
+      const response = await fetch(
+        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoSelecionado}/distritos`
+      );
+      const data = await response.json();
+      setCidadesDoEstado(data);
+    }
+    getCities();
+  }, [estadoSelecionado]);
 
   useEffect(() => {
     async function getStates() {
@@ -45,11 +85,9 @@ export default function SignupModal(props) {
       open={handleClickOpen}
       onClose={handleClose}
     >
-      <DialogTitle>Create an account</DialogTitle>
+      <DialogTitle>Crie sua conta!</DialogTitle>
       <DialogContent>
-        <DialogContentText>
-          Please fill all the necessary informations to register.
-        </DialogContentText>
+        <DialogContentText>Preencha os dados obrigatórios.</DialogContentText>
         <div className="inputsFormCreateAccount-1">
           <Box m={1}>
             <TextField
@@ -71,7 +109,7 @@ export default function SignupModal(props) {
           </Box>
         </div>
         <div className="inputsFormCreateAccount-2">
-          <Box>
+          <Box mt={0.4}>
             <FormControl
               style={{ minWidth: 200 }}
               variant="standard"
@@ -84,56 +122,79 @@ export default function SignupModal(props) {
               <Select
                 labelId="demo-simple-select-autowidth-label"
                 id="demo-simple-select-autowidth"
-                value="{age}"
-                onChange=""
+                value={estadoSelecionado}
                 autoWidth
                 label="Age"
+                onChange={handleChangeEstado}
               >
                 {estados.map((estado) => {
-                  return <MenuItem value={estado.nome}>{estado.nome}</MenuItem>;
+                  return (
+                    <MenuItem value={estado.sigla}>{estado.sigla}</MenuItem>
+                  );
                 })}
               </Select>
             </FormControl>
           </Box>
-          <Box>
-            <TextField
-              margin="dense"
-              id="cidade"
-              label="Cidade"
-              type="text"
+          <Box mt={0.4}>
+            <FormControl
+              style={{ minWidth: 200 }}
               variant="standard"
-            />
+              sx={{ m: 0.7 }}
+            >
+              <InputLabel id="demo-simple-select-autowidth-label">
+                Cidade
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-autowidth-label"
+                id="demo-simple-select-autowidth"
+                value={cidadeSelecionada}
+                onChange={handleChangeCidade}
+                label="Age"
+              >
+                {cidadesDoEstado.map((cidade) => {
+                  return <MenuItem value={cidade.nome}>{cidade.nome}</MenuItem>;
+                })}
+              </Select>
+            </FormControl>
           </Box>
         </div>
         <div className="inputsFormCreateAccount-3">
           <Grid container justifyContent="center">
             <TextField
+              autoFocus
               style={{ minWidth: 410 }}
               margin="dense"
               id="email"
               label="Email"
               type="email"
               variant="standard"
+              onChange={handleChangeEmail}
             />
           </Grid>
         </div>
         <div className="inputsFormCreateAccount-4">
           <Box m={1}>
             <TextField
+              autoFocus
+              key="editor2"
               margin="dense"
               id="password"
               label="Password"
               type="password"
               variant="standard"
+              onChange={handleChangePrimeiraSenha}
             />
           </Box>
           <Box m={1}>
             <TextField
+              autoFocus
+              key="editor1"
               margin="dense"
               id="password"
               label="Password confirmation"
               type="password"
               variant="standard"
+              onChange={handleChangeSegundaSenha}
             />
           </Box>
         </div>
