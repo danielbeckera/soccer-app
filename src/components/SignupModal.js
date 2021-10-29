@@ -31,6 +31,9 @@ export default function SignupModal(props) {
   const [segundaSenha, setSegundaSenha] = useState("");
   const [email, setEmail] = useState("");
   const [senhasIguais, setSenhasIguais] = useState("hidden");
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleMouseDownPassword = () => setShowPassword(!showPassword);
   // Seleção de nome e sobrenome modal
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
@@ -244,7 +247,9 @@ export default function SignupModal(props) {
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={props.handleClose}>Cancel</Button>
+        <Button onClick={props.handleClose} variant="contained" color="error">
+          Cancel
+        </Button>
         <Button
           disabled={
             primeiraSenha != segundaSenha ||
@@ -252,6 +257,7 @@ export default function SignupModal(props) {
             segundaSenha === ""
           }
           onClick={register}
+          variant="contained"
         >
           Create account
         </Button>
