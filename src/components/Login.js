@@ -13,15 +13,19 @@ import {
   Select,
   MenuItem,
   Box,
+  Alert,
 } from "@mui/material";
 import "./Login.css";
-import video from "../assets/video-login.mp4";
+// import video from "../assets/video-login.mp4";
 import SignupModal from "./SignupModal";
+import { signInWithEmailAndPassword } from "@firebase/auth";
+import { auth } from "../firebase-config";
 
 export default function Login(props) {
   const [login, setLogin] = useState("");
   const [password, setPassword] = useState("");
   const [visible, setVisible] = useState(false);
+  const [erroSenha, setErroSenha] = useState("hidden");
 
   const onUsernameChange = (e) => {
     setLogin(e.target.value);
@@ -39,11 +43,21 @@ export default function Login(props) {
     setVisible(false);
   };
 
+  const loginUser = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(auth, login, password);
+      console.log(user);
+    } catch (error) {
+      setErroSenha("show");
+      console.log(error.message);
+    }
+  };
+
   return (
     <div className="page">
-      <video autoPlay muted loop id="myVideo">
+      {/* <video autoPlay muted loop id="myVideo">
         <source src={video} type="video/mp4"></source>
-      </video>
+      </video> */}
       <div className="container">
         {/* Modal de criação de conta */}
         <SignupModal handleClose={handleClose} visibleOn={visible} />
@@ -67,12 +81,25 @@ export default function Login(props) {
               type="password"
               variant="outlined"
             />
+            <Alert
+              sx={{ visibility: erroSenha }}
+              variant="filled"
+              severity="error"
+            >
+              Senha incorreta.
+            </Alert>
           </div>
           <div className="loginButton">
-            <Button size="large" className="inputLogin" variant="contained">
+            <Button
+              size="large"
+              className="inputLogin"
+              variant="contained"
+              onClick={loginUser}
+            >
               LOGIN
             </Button>
           </div>
+
           <div className="checkbox">
             <Checkbox></Checkbox>
             <p id="testee">Remember me</p>

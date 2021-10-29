@@ -14,7 +14,8 @@ import {
   Box,
   FormControl,
 } from "@mui/material";
-import axios from "axios";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase-config";
 
 export default function SignupModal(props) {
   // Abertura do modal
@@ -24,10 +25,26 @@ export default function SignupModal(props) {
   const [estadoSelecionado, setEstadoSelecionado] = useState("");
   const [cidadesDoEstado, setCidadesDoEstado] = useState([]);
   const [cidadeSelecionada, setCidadeSelecionada] = useState("");
-  // Seleção de senhas do modal
+  // Seleção de email/senha do modal
   const [primeiraSenha, setPrimeiraSenha] = useState("");
   const [segundaSenha, setSegundaSenha] = useState("");
   const [email, setEmail] = useState("");
+  // Seleção de nome e sobrenome modal
+  const [nome, setNome] = useState("");
+  const [sobrenome, setSobrenome] = useState("");
+
+  const register = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        primeiraSenha
+      );
+      console.log(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -40,6 +57,14 @@ export default function SignupModal(props) {
   useEffect(() => {
     setOpen(props.visibleOn);
   }, [props.visibleOn]);
+
+  const handleChangeNome = (e) => {
+    setNome(e.target.value);
+  };
+
+  const handleChangeSobrenome = (e) => {
+    setSobrenome(e.target.value);
+  };
 
   const handleChangeEstado = (e) => {
     setEstadoSelecionado(e.target.value);
@@ -88,7 +113,7 @@ export default function SignupModal(props) {
       <DialogTitle>Crie sua conta!</DialogTitle>
       <DialogContent>
         <DialogContentText>Preencha os dados obrigatórios.</DialogContentText>
-        <div className="inputsFormCreateAccount-1">
+        {/* <div className="inputsFormCreateAccount-1">
           <Box m={1}>
             <TextField
               margin="dense"
@@ -96,6 +121,7 @@ export default function SignupModal(props) {
               label="Nome"
               type="text"
               variant="standard"
+              onChange={handleChangeNome}
             />
           </Box>
           <Box m={1}>
@@ -105,10 +131,11 @@ export default function SignupModal(props) {
               label="Sobrenome"
               type="text"
               variant="standard"
+              onChange={handleChangeSobrenome}
             />
           </Box>
-        </div>
-        <div className="inputsFormCreateAccount-2">
+        </div> */}
+        {/* <div className="inputsFormCreateAccount-2">
           <Box mt={0.4}>
             <FormControl
               style={{ minWidth: 200 }}
@@ -157,7 +184,7 @@ export default function SignupModal(props) {
               </Select>
             </FormControl>
           </Box>
-        </div>
+        </div> */}
         <div className="inputsFormCreateAccount-3">
           <Grid container justifyContent="center">
             <TextField
@@ -196,7 +223,7 @@ export default function SignupModal(props) {
       </DialogContent>
       <DialogActions>
         <Button onClick={props.handleClose}>Cancel</Button>
-        <Button onClick={props.handleClose}>Create account</Button>
+        <Button onClick={register}>Create account</Button>
       </DialogActions>
     </Dialog>
   );
