@@ -95,6 +95,7 @@ export default function Login(props) {
               className="inputLogin"
               variant="contained"
               onClick={loginUser}
+              disabled={login === "" || password === ""}
             >
               LOGIN
             </Button>
