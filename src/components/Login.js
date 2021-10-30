@@ -57,9 +57,9 @@ export default function Login(props) {
 
   return (
     <div className="page">
-      {/* <video autoPlay muted loop id="myVideo">
+      <video autoPlay muted loop id="myVideo">
         <source src={video} type="video/mp4"></source>
-      </video> */}
+      </video>
       <div className="container">
         {/* Modal de criação de conta */}
         <SignupModal handleClose={handleClose} visibleOn={visible} />
@@ -83,13 +83,14 @@ export default function Login(props) {
               type="password"
               variant="outlined"
             />
-            <Alert
+            {erroSenha ? <Alert
               sx={{ visibility: erroSenha }}
               variant="filled"
               severity="error"
             >
               {erroAuth}
-            </Alert>
+            </Alert> : null}
+            
           </div>
           <div className="loginButton">
             <Button
@@ -112,7 +113,7 @@ export default function Login(props) {
               Ainda não possui uma conta?{" "}
               <a href="#" onClick={handleClickOpen}>
                 <span>
-                  <strong>Sign up now</strong>
+                  <strong>Crie uma agora!</strong>
                 </span>
               </a>
             </p>
