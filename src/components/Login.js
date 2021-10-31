@@ -18,7 +18,7 @@ import {
 import "./Login.css";
 import video from "../assets/video.mp4";
 import SignupModal from "./SignupModal";
-import { signInWithEmailAndPassword } from "@firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../firebase-config";
 
 export default function Login(props) {
@@ -108,7 +108,7 @@ export default function Login(props) {
 
           <div className="checkbox">
             <Checkbox></Checkbox>
-            <p id="testee">Manter conectado</p>
+            <p id="testee">Lembrar senha </p>
           </div>
           <div className="signup">
             <p>
