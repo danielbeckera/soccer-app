@@ -182,23 +182,6 @@ export default function SignupModal(props) {
           {mensagemErro}  
         </Alert>}
         
-        {/* <Alert
-          sx={{ visibility: senhasIguais }}
-          variant="filled"
-          severity="error"
-        >
-          As senhas devem ser iguais.
-        </Alert> */}
-
-        {/* {primeiraSenha !== segundaSenha ? <Alert
-          sx={{ visibility: senhasIguais }}
-          variant="filled"
-          severity="error"
-        >
-          As senhas devem ser iguais.
-        </Alert> : null} */}
-        
-        
       </DialogContent>
 
       <DialogActions>
