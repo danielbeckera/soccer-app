@@ -27,6 +27,7 @@ export default function Login(props) {
   const [visible, setVisible] = useState(false);
   const [erroSenha, setErroSenha] = useState("hidden");
   const [erroAuth, setErroAuth] = useState("");
+  const [contaLogada, setContaLogada] = useState(false);
 
   const onUsernameChange = (e) => {
     setLogin(e.target.value);
@@ -48,9 +49,10 @@ export default function Login(props) {
     try {
       const user = await signInWithEmailAndPassword(auth, login, password);
       console.log(user);
+      setContaLogada(true)
     } catch (error) {
       setErroSenha("show");
-      setErroAuth('Error (auth/invalid-email).');
+      setErroAuth(error.message);
       console.log('Error (auth/invalid-email).');
     }
   };
