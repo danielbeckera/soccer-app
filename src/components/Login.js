@@ -50,8 +50,8 @@ export default function Login(props) {
       console.log(user);
     } catch (error) {
       setErroSenha("show");
-      setErroAuth(error.message);
-      console.log(error.message);
+      setErroAuth('Error (auth/invalid-email).');
+      console.log('Error (auth/invalid-email).');
     }
   };
 
