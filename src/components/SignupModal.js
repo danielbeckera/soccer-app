@@ -120,7 +120,7 @@ export default function SignupModal(props) {
           </Grid>
         </div>
         <div className="inputsFormCreateAccount-4">
-          <Box m={1}>
+          <Box m={1} mr={6}>
           {primeiraSenha !== segundaSenha && segundaSenha !== "" ?  
           <TextField
           error
@@ -135,7 +135,7 @@ export default function SignupModal(props) {
         <TextField
             margin="dense"
             id="password"
-            label="Password"
+            label="Senha"
             type="password"
             variant="standard"
             onChange={handleChangePrimeiraSenha}
@@ -143,7 +143,7 @@ export default function SignupModal(props) {
         }
           
           </Box>
-          <Box m={1}>
+          <Box m={1} ml={3}>
         {primeiraSenha !== segundaSenha && segundaSenha !== "" ?  
           <TextField
           error
@@ -160,7 +160,7 @@ export default function SignupModal(props) {
           variant="standard"
           margin="dense"
           id="password"
-          label="Password confirmation"
+          label="Confirmação de senha"
           type="password"
           onChange={handleChangeSegundaSenha}
         />
@@ -203,7 +203,7 @@ export default function SignupModal(props) {
 
       <DialogActions>
         <Button onClick={props.handleClose} variant="contained" color="error">
-          Cancel
+          CANCELAR
         </Button>
         <Button
           disabled={
@@ -214,7 +214,7 @@ export default function SignupModal(props) {
           onClick={register}
           variant="contained"
         >
-          Create account
+          CRIAR CONTA
         </Button>
       </DialogActions>
     </Dialog>
