@@ -121,39 +121,31 @@ export default function SignupModal(props) {
         </div>
         <div className="inputsFormCreateAccount-4">
           <Box m={1}>
-          {primeiraSenha === segundaSenha ? 
+          {primeiraSenha !== segundaSenha && segundaSenha !== "" ?  
           <TextField
-            margin="dense"
-            id="password"
-            label="Password"
-            type="password"
-            variant="standard"
-            onChange={handleChangePrimeiraSenha}
-          /> :         <TextField
           error
           id="standard-error-helper-text"
-
           defaultValue="Hello World"
           helperText="Senhas diferentes"
           variant="standard"
           onChange={handleChangePrimeiraSenha}
           type="password"
         />
+           :
+        <TextField
+            margin="dense"
+            id="password"
+            label="Password"
+            type="password"
+            variant="standard"
+            onChange={handleChangePrimeiraSenha}
+          />
         }
           
           </Box>
           <Box m={1}>
-        {primeiraSenha === segundaSenha ?  
+        {primeiraSenha !== segundaSenha && segundaSenha !== "" ?  
           <TextField
-            variant="standard"
-            margin="dense"
-            id="password"
-            label="Password confirmation"
-            type="password"
-            onChange={handleChangeSegundaSenha}
-          />
-         :
-         <TextField
           error
           variant="standard"
           id="outlined-error-helper-text"
@@ -162,6 +154,16 @@ export default function SignupModal(props) {
           type="password" 
           onChange={handleChangeSegundaSenha}
           />
+
+         :
+          <TextField
+          variant="standard"
+          margin="dense"
+          id="password"
+          label="Password confirmation"
+          type="password"
+          onChange={handleChangeSegundaSenha}
+        />
         }
            
           </Box>
