@@ -120,40 +120,32 @@ export default function SignupModal(props) {
           </Grid>
         </div>
         <div className="inputsFormCreateAccount-4">
-          <Box m={1}>
-          {primeiraSenha === segundaSenha ? 
+          <Box m={1} mr={6}>
+          {primeiraSenha !== segundaSenha && segundaSenha !== "" ?  
           <TextField
-            margin="dense"
-            id="password"
-            label="Password"
-            type="password"
-            variant="standard"
-            onChange={handleChangePrimeiraSenha}
-          /> :         <TextField
           error
           id="standard-error-helper-text"
-
           defaultValue="Hello World"
           helperText="Senhas diferentes"
           variant="standard"
           onChange={handleChangePrimeiraSenha}
           type="password"
         />
+           :
+        <TextField
+            margin="dense"
+            id="password"
+            label="Senha"
+            type="password"
+            variant="standard"
+            onChange={handleChangePrimeiraSenha}
+          />
         }
           
           </Box>
-          <Box m={1}>
-        {primeiraSenha === segundaSenha ?  
+          <Box m={1} ml={3}>
+        {primeiraSenha !== segundaSenha && segundaSenha !== "" ?  
           <TextField
-            variant="standard"
-            margin="dense"
-            id="password"
-            label="Password confirmation"
-            type="password"
-            onChange={handleChangeSegundaSenha}
-          />
-         :
-         <TextField
           error
           variant="standard"
           id="outlined-error-helper-text"
@@ -162,6 +154,16 @@ export default function SignupModal(props) {
           type="password" 
           onChange={handleChangeSegundaSenha}
           />
+
+         :
+          <TextField
+          variant="standard"
+          margin="dense"
+          id="password"
+          label="Confirmação de senha"
+          type="password"
+          onChange={handleChangeSegundaSenha}
+        />
         }
            
           </Box>
@@ -201,7 +203,7 @@ export default function SignupModal(props) {
 
       <DialogActions>
         <Button onClick={props.handleClose} variant="contained" color="error">
-          Cancel
+          CANCELAR
         </Button>
         <Button
           disabled={
@@ -212,7 +214,7 @@ export default function SignupModal(props) {
           onClick={register}
           variant="contained"
         >
-          Create account
+          CRIAR CONTA
         </Button>
       </DialogActions>
     </Dialog>
