@@ -36,6 +36,7 @@ export default function SignupModal(props) {
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
   const [alerta, setAlerta] = useState("");
+  const [defaultValue, setDefaultValue] = useState("")
 
   const register = async () => {
     try {
@@ -66,6 +67,7 @@ export default function SignupModal(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setDefaultValue("coco")
   };
 
   useEffect(() => {
@@ -113,6 +115,7 @@ export default function SignupModal(props) {
               margin="dense"
               id="email"
               label="Email"
+              required
               type="email"
               variant="standard"
               onChange={handleChangeEmail}
@@ -125,7 +128,7 @@ export default function SignupModal(props) {
           <TextField
           error
           id="standard-error-helper-text"
-          defaultValue="Hello World"
+          defaultValue={defaultValue}
           helperText="Senhas diferentes"
           variant="standard"
           onChange={handleChangePrimeiraSenha}
@@ -133,6 +136,7 @@ export default function SignupModal(props) {
         />
            :
         <TextField
+            required
             margin="dense"
             id="password"
             label="Senha"
@@ -149,7 +153,7 @@ export default function SignupModal(props) {
           error
           variant="standard"
           id="outlined-error-helper-text"
-          defaultValue="Hello World"
+          defaultValue={defaultValue}
           helperText="Senhas diferentes"
           type="password" 
           onChange={handleChangeSegundaSenha}
@@ -157,6 +161,7 @@ export default function SignupModal(props) {
 
          :
           <TextField
+          required
           variant="standard"
           margin="dense"
           id="password"
