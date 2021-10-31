@@ -102,6 +102,15 @@ export default function SignupModal(props) {
     setEmail(e.target.value);
   };
 
+  const handleCloseModal = () => {
+    props.handleClose()
+    setPrimeiraSenha("");
+    setSegundaSenha("");
+    setEmail("");
+    setContaCriada(false);
+    setContaErro("hidden");
+  }
+
   return (
     <>
     <Dialog open={open} onClose={handleClose}>
@@ -153,7 +162,6 @@ export default function SignupModal(props) {
           error
           variant="standard"
           id="outlined-error-helper-text"
-          defaultValue={defaultValue}
           helperText="Senhas diferentes"
           type="password" 
           onChange={handleChangeSegundaSenha}
@@ -190,7 +198,7 @@ export default function SignupModal(props) {
       </DialogContent>
 
       <DialogActions>
-        <Button onClick={props.handleClose} variant="contained" color="error">
+        <Button onClick={ handleCloseModal} variant="contained" color="error">
           CANCELAR
         </Button>
         <Button
