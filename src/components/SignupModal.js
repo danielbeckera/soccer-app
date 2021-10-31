@@ -192,7 +192,8 @@ export default function SignupModal(props) {
           disabled={
             primeiraSenha !== segundaSenha ||
             primeiraSenha === "" ||
-            segundaSenha === ""
+            segundaSenha === "" ||
+            email === ""
           }
           onClick={register}
           variant="contained"

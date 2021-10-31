@@ -6,7 +6,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 
 
 export default function Home() {
-  const [auth, setAuth] = useState(true);
+  const [authTst, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
 
   const handleChange = (event) => {
@@ -23,6 +23,7 @@ export default function Home() {
 
   return (
     <>
+
       <AppBar position="static">
         <Toolbar variant="dense">
           <IconButton edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
@@ -56,6 +57,7 @@ export default function Home() {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
               >
+              <MenuItem>{auth.currentUser.email}</MenuItem>
               <MenuItem onClick={handleClose}>Perfil</MenuItem>
               <MenuItem onClick={handleClose}>Configurações</MenuItem>
               <MenuItem onClick={handleClose}>Sair</MenuItem>
@@ -63,6 +65,7 @@ export default function Home() {
         </Toolbar>
         
       </AppBar>
+
     </>
   );
 }
