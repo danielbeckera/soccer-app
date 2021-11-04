@@ -31,6 +31,7 @@ export default function SignupModal(props) {
   const [email, setEmail] = useState("");
   const [senhasIguais, setSenhasIguais] = useState("hidden");
   const [showPassword, setShowPassword] = useState(false);
+  const [emailValidado, setEmailValidado] = useState(false);
   // Seleção de nome e sobrenome modal
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
@@ -54,6 +55,16 @@ export default function SignupModal(props) {
       setSenhasIguais("show");
     }
   };
+
+  const emailValidator = () => {
+    /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)
+      ? setEmailValidado(true)
+      : setEmailValidado(false);
+  };
+
+  useEffect(() => {
+    emailValidator();
+  }, [email]);
 
   useEffect(() => {
     handleSamePassword();
@@ -167,7 +178,7 @@ export default function SignupModal(props) {
             senha.primeiraSenha !== senha.segundaSenha ||
             senha.primeiraSenha === "" ||
             senha.segundaSenha === "" ||
-            email === ""
+            emailValidado === false
           }
           onClick={register}
           variant="contained"
