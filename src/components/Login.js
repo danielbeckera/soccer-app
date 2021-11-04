@@ -18,7 +18,7 @@ import {
 import "./Login.css";
 import video from "../assets/video.mp4";
 import SignupModal from "./SignupModal";
-import { signInWithEmailAndPassword } from "@firebase/auth";
+import { getAuth, signInWithEmailAndPassword } from "@firebase/auth";
 import { auth } from "../firebase-config";
 
 export default function Login(props) {
@@ -27,6 +27,7 @@ export default function Login(props) {
   const [visible, setVisible] = useState(false);
   const [erroSenha, setErroSenha] = useState("hidden");
   const [erroAuth, setErroAuth] = useState("");
+  const [contaLogada, setContaLogada] = useState(false);
 
   const onUsernameChange = (e) => {
     setLogin(e.target.value);
@@ -48,10 +49,11 @@ export default function Login(props) {
     try {
       const user = await signInWithEmailAndPassword(auth, login, password);
       console.log(user);
+      setContaLogada(true);
     } catch (error) {
       setErroSenha("show");
       setErroAuth(error.message);
-      console.log(error.message);
+      console.log("Error (auth/invalid-email).");
     }
   };
 
@@ -83,13 +85,15 @@ export default function Login(props) {
               type="password"
               variant="outlined"
             />
-            <Alert
-              sx={{ visibility: erroSenha }}
-              variant="filled"
-              severity="error"
-            >
-              {erroAuth}
-            </Alert>
+            {erroSenha ? (
+              <Alert
+                sx={{ visibility: erroSenha }}
+                variant="filled"
+                severity="error"
+              >
+                {erroAuth}
+              </Alert>
+            ) : null}
           </div>
           <div className="loginButton">
             <Button
@@ -104,7 +108,7 @@ export default function Login(props) {
 
           <div className="checkbox">
             <Checkbox></Checkbox>
-            <p id="testee">Manter conectado</p>
+            <p id="testee">Lembrar senha </p>
           </div>
           <div className="signup">
             <p>

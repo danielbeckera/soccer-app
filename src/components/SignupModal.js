@@ -8,11 +8,7 @@ import {
   DialogActions,
   Dialog,
   Grid,
-  InputLabel,
-  Select,
-  MenuItem,
   Box,
-  FormControl,
   Alert,
 } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -35,6 +31,11 @@ export default function SignupModal(props) {
   // Seleção de nome e sobrenome modal
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
+  const [alerta, setAlerta] = useState("");
+  const [defaultValue, setDefaultValue] = useState("");
+  const [contaErro, setContaErro] = useState("hidden");
+  const [mensagemErro, setMensagemErro] = useState("");
+  const [contaCriada, setContaCriada] = useState(false);
 
   const register = async () => {
     try {
@@ -44,7 +45,9 @@ export default function SignupModal(props) {
         senha.primeiraSenha
       );
     } catch (error) {
-      console.log(error.message);
+      setMensagemErro(error.message);
+      setContaErro("show");
+      setContaCriada(true);
     }
   };
 
@@ -76,6 +79,7 @@ export default function SignupModal(props) {
 
   const handleClose = () => {
     setOpen(false);
+    setDefaultValue("coco");
   };
 
   useEffect(() => {
@@ -98,94 +102,119 @@ export default function SignupModal(props) {
     setEmail(e.target.value);
   };
 
-  useEffect(() => {
-    async function getCities() {
-      const response = await fetch(
-        `https://servicodados.ibge.gov.br/api/v1/localidades/estados/${estadoSelecionado}/distritos`
-      );
-      const data = await response.json();
-      setCidadesDoEstado(data);
-    }
-    getCities();
-  }, [estadoSelecionado]);
-
-  useEffect(() => {
-    async function getStates() {
-      const response = await fetch(
-        "https://servicodados.ibge.gov.br/api/v1/localidades/estados"
-      );
-      const data = await response.json();
-      setEstados(data);
-    }
-    getStates();
-  }, []);
+  const handleCloseModal = () => {
+    props.handleClose();
+    setSenha({ ...senha, primeiraSenha: "" });
+    setSenha({ ...senha, segundaSenha: "" });
+    setEmail("");
+  };
 
   return (
-    <Dialog open={open} onClose={handleClose}>
-      <DialogTitle>Crie sua conta!</DialogTitle>
-      <DialogContent>
-        <DialogContentText>Preencha os dados obrigatórios.</DialogContentText>
-        <div className="inputsFormCreateAccount-3">
-          <Grid container justifyContent="center">
-            <TextField
-              style={{ minWidth: 410 }}
-              margin="dense"
-              id="email"
-              label="Email"
-              type="email"
-              variant="standard"
-              onChange={handleChangeEmail}
-            />
-          </Grid>
-        </div>
-        <div className="inputsFormCreateAccount-4">
-          <Box m={1}>
-            <TextField
-              margin="dense"
-              id="password"
-              label="Password"
-              type="password"
-              variant="standard"
-              onChange={handleChangePrimeiraSenha}
-            />
-          </Box>
-          <Box m={1}>
-            <TextField
-              margin="dense"
-              id="password"
-              label="Password confirmation"
-              type="password"
-              variant="standard"
-              onChange={handleChangeSegundaSenha}
-            />
-          </Box>
-        </div>
-        <Alert
-          sx={{ visibility: senhasIguais }}
-          variant="filled"
-          severity="error"
-        >
-          As senhas devem ser iguais.
-        </Alert>
-      </DialogContent>
+    <>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Crie sua conta!</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Preencha os dados obrigatórios.</DialogContentText>
+          <div className="inputsFormCreateAccount-3">
+            <Grid container justifyContent="center">
+              <TextField
+                style={{ minWidth: 410 }}
+                margin="dense"
+                id="email"
+                label="Email"
+                required
+                type="email"
+                variant="standard"
+                onChange={handleChangeEmail}
+              />
+            </Grid>
+          </div>
+          <div className="inputsFormCreateAccount-4">
+            <Box m={1} mr={0}>
+              {senha.primeiraSenha !== senha.segundaSenha &&
+              senha.segundaSenha !== "" ? (
+                <TextField
+                  error
+                  id="standard-error-helper-text"
+                  defaultValue={defaultValue}
+                  helperText="Senhas diferentes"
+                  variant="standard"
+                  onChange={handleChangePrimeiraSenha}
+                  type="password"
+                />
+              ) : (
+                <TextField
+                  required
+                  margin="dense"
+                  id="password"
+                  label="Senha"
+                  type="password"
+                  variant="standard"
+                  onChange={handleChangePrimeiraSenha}
+                />
+              )}
+            </Box>
+            <Box m={1} ml={3}>
+              {senha.primeiraSenha !== senha.segundaSenha &&
+              senha.segundaSenha !== "" ? (
+                <TextField
+                  error
+                  variant="standard"
+                  id="outlined-error-helper-text"
+                  helperText="Senhas diferentes"
+                  type="password"
+                  onChange={handleChangeSegundaSenha}
+                />
+              ) : (
+                <TextField
+                  required
+                  variant="standard"
+                  margin="dense"
+                  id="password"
+                  label="Confirmação de senha"
+                  type="password"
+                  onChange={handleChangeSegundaSenha}
+                />
+              )}
+            </Box>
+          </div>
+          {contaCriada ? (
+            <Alert
+              sx={{ visibility: contaCriada }}
+              variant="filled"
+              severity="success"
+            >
+              Conta criada com sucesso!
+            </Alert>
+          ) : (
+            <Alert
+              sx={{ visibility: contaErro }}
+              variant="filled"
+              severity="error"
+            >
+              {mensagemErro}
+            </Alert>
+          )}
+        </DialogContent>
 
-      <DialogActions>
-        <Button onClick={props.handleClose} variant="contained" color="error">
-          Cancel
-        </Button>
-        <Button
-          disabled={
-            senha.primeiraSenha !== senha.segundaSenha ||
-            senha.primeiraSenha === "" ||
-            senha.segundaSenha === "" ||
-            emailValidado === false
-          }
-          onClick={register}
-          variant="contained"
-        >
-          Create account
-        </Button>
-      </DialogActions>
-    </Dialog>
+        <DialogActions>
+          <Button onClick={handleCloseModal} variant="contained" color="error">
+            CANCELAR
+          </Button>
+          <Button
+            disabled={
+              senha.primeiraSenha !== senha.segundaSenha ||
+              senha.primeiraSenha === "" ||
+              senha.segundaSenha === "" ||
+              emailValidado === false
+            }
+            onClick={register}
+            variant="contained"
+          >
+            CRIAR CONTA
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }
