@@ -27,13 +27,10 @@ export default function SignupModal(props) {
   const [cidadesDoEstado, setCidadesDoEstado] = useState([]);
   const [cidadeSelecionada, setCidadeSelecionada] = useState("");
   // Seleção de email/senha do modal
-  const [primeiraSenha, setPrimeiraSenha] = useState("");
-  const [segundaSenha, setSegundaSenha] = useState("");
+  const [senha, setSenha] = useState({ primeiraSenha: "", segundaSenha: "" });
   const [email, setEmail] = useState("");
   const [senhasIguais, setSenhasIguais] = useState("hidden");
   const [showPassword, setShowPassword] = useState(false);
-  const handleClickShowPassword = () => setShowPassword(!showPassword);
-  const handleMouseDownPassword = () => setShowPassword(!showPassword);
   // Seleção de nome e sobrenome modal
   const [nome, setNome] = useState("");
   const [sobrenome, setSobrenome] = useState("");
@@ -43,16 +40,15 @@ export default function SignupModal(props) {
       const user = await createUserWithEmailAndPassword(
         auth,
         email,
-        primeiraSenha
+        senha.primeiraSenha
       );
-      console.log(user);
     } catch (error) {
       console.log(error.message);
     }
   };
 
   const handleSamePassword = () => {
-    if (primeiraSenha === segundaSenha) {
+    if (senha.primeiraSenha === senha.segundaSenha) {
       setSenhasIguais("hidden");
     } else {
       setSenhasIguais("show");
@@ -61,7 +57,7 @@ export default function SignupModal(props) {
 
   useEffect(() => {
     handleSamePassword();
-  }, [segundaSenha]);
+  }, [senha.segundaSenha]);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -75,28 +71,16 @@ export default function SignupModal(props) {
     setOpen(props.visibleOn);
   }, [props.visibleOn]);
 
-  const handleChangeNome = (e) => {
-    setNome(e.target.value);
-  };
-
-  const handleChangeSobrenome = (e) => {
-    setSobrenome(e.target.value);
-  };
-
-  const handleChangeEstado = (e) => {
-    setEstadoSelecionado(e.target.value);
-  };
-
   const handleChangeCidade = (e) => {
     setCidadeSelecionada(e.target.value);
   };
 
   const handleChangePrimeiraSenha = (e) => {
-    setPrimeiraSenha(e.target.value);
+    setSenha({ ...senha, primeiraSenha: e.target.value });
   };
 
   const handleChangeSegundaSenha = (e) => {
-    setSegundaSenha(e.target.value);
+    setSenha({ ...senha, segundaSenha: e.target.value });
   };
 
   const handleChangeEmail = (e) => {
@@ -130,78 +114,6 @@ export default function SignupModal(props) {
       <DialogTitle>Crie sua conta!</DialogTitle>
       <DialogContent>
         <DialogContentText>Preencha os dados obrigatórios.</DialogContentText>
-        {/* <div className="inputsFormCreateAccount-1">
-          <Box m={1}>
-            <TextField
-              margin="dense"
-              id="nome"
-              label="Nome"
-              type="text"
-              variant="standard"
-              onChange={handleChangeNome}
-            />
-          </Box>
-          <Box m={1}>
-            <TextField
-              margin="dense"
-              id="sobrenome"
-              label="Sobrenome"
-              type="text"
-              variant="standard"
-              onChange={handleChangeSobrenome}
-            />
-          </Box>
-        </div> */}
-        {/* <div className="inputsFormCreateAccount-2">
-          <Box mt={0.4}>
-            <FormControl
-              style={{ minWidth: 200 }}
-              variant="standard"
-              sx={{ m: 1, minWidth: 120 }}
-              size="small"
-            >
-              <InputLabel id="demo-simple-select-autowidth-label">
-                Estado
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-autowidth-label"
-                id="demo-simple-select-autowidth"
-                value={estadoSelecionado}
-                autoWidth
-                label="Age"
-                onChange={handleChangeEstado}
-              >
-                {estados.map((estado) => {
-                  return (
-                    <MenuItem value={estado.sigla}>{estado.sigla}</MenuItem>
-                  );
-                })}
-              </Select>
-            </FormControl>
-          </Box>
-          <Box mt={0.4}>
-            <FormControl
-              style={{ minWidth: 200 }}
-              variant="standard"
-              sx={{ m: 0.7 }}
-            >
-              <InputLabel id="demo-simple-select-autowidth-label">
-                Cidade
-              </InputLabel>
-              <Select
-                labelId="demo-simple-select-autowidth-label"
-                id="demo-simple-select-autowidth"
-                value={cidadeSelecionada}
-                onChange={handleChangeCidade}
-                label="Age"
-              >
-                {cidadesDoEstado.map((cidade) => {
-                  return <MenuItem value={cidade.nome}>{cidade.nome}</MenuItem>;
-                })}
-              </Select>
-            </FormControl>
-          </Box>
-        </div> */}
         <div className="inputsFormCreateAccount-3">
           <Grid container justifyContent="center">
             <TextField
@@ -252,9 +164,10 @@ export default function SignupModal(props) {
         </Button>
         <Button
           disabled={
-            primeiraSenha != segundaSenha ||
-            primeiraSenha === "" ||
-            segundaSenha === ""
+            senha.primeiraSenha !== senha.segundaSenha ||
+            senha.primeiraSenha === "" ||
+            senha.segundaSenha === "" ||
+            email === ""
           }
           onClick={register}
           variant="contained"

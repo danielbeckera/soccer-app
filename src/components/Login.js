@@ -61,7 +61,7 @@ export default function Login(props) {
         <source src={video} type="video/mp4"></source>
       </video> */}
       <div className="container">
-        {/* Modal de criação de conta */}
+        {/* Componente do Modal de criação de conta sendo chamado*/}
         <SignupModal handleClose={handleClose} visibleOn={visible} />
         <div className="login-box">
           <div className="username">
@@ -97,7 +97,6 @@ export default function Login(props) {
               className="inputLogin"
               variant="contained"
               onClick={loginUser}
-              disabled={login === "" || password === ""}
             >
               ENTRAR
             </Button>
@@ -112,7 +111,7 @@ export default function Login(props) {
               Ainda não possui uma conta?{" "}
               <a href="#" onClick={handleClickOpen}>
                 <span>
-                  <strong>Sign up now</strong>
+                  <strong>Inscreva-se</strong>
                 </span>
               </a>
             </p>
