@@ -45,6 +45,7 @@ export default function SignupModal(props) {
         email,
         senha.primeiraSenha
       );
+      setContaCriada(true);
     } catch (error) {
       setMensagemErro(error.message);
       setContaErro("show");
@@ -156,6 +157,7 @@ export default function SignupModal(props) {
                 />
               )}
             </Box>
+
             <Box m={1} ml={3}>
               {senha.primeiraSenha !== senha.segundaSenha &&
               senha.segundaSenha !== "" ? (

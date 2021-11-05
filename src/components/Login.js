@@ -62,7 +62,7 @@ export default function Login(props) {
     try {
       const user = await signInWithEmailAndPassword(
         auth,
-        login,
+        login.username,
         login.password
       );
       console.log(user);
