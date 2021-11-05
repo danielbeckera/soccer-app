@@ -10,6 +10,7 @@ import {
   Grid,
   Box,
   Alert,
+  CircularProgress,
 } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
@@ -47,7 +48,6 @@ export default function SignupModal(props) {
     } catch (error) {
       setMensagemErro(error.message);
       setContaErro("show");
-      setContaCriada(true);
     }
   };
 
@@ -107,6 +107,7 @@ export default function SignupModal(props) {
     setSenha({ ...senha, primeiraSenha: "" });
     setSenha({ ...senha, segundaSenha: "" });
     setEmail("");
+    setContaCriada(false);
   };
 
   return (
