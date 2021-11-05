@@ -108,6 +108,7 @@ export default function SignupModal(props) {
     setSenha({ ...senha, segundaSenha: "" });
     setEmail("");
     setContaCriada(false);
+    setContaErro("hidden");
   };
 
   return (
