@@ -10,7 +10,6 @@ import {
   Grid,
   Box,
   Alert,
-  CircularProgress,
 } from "@mui/material";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../firebase-config";
@@ -20,23 +19,16 @@ export default function SignupModal(props) {
   const [open, setOpen] = useState(props.visibleOn);
   // Seleção do estado/cidade
   const [estados, setEstados] = useState([]);
-  const [estadoSelecionado, setEstadoSelecionado] = useState("");
-  const [cidadesDoEstado, setCidadesDoEstado] = useState([]);
-  const [cidadeSelecionada, setCidadeSelecionada] = useState("");
   // Seleção de email/senha do modal
   const [senha, setSenha] = useState({ primeiraSenha: "", segundaSenha: "" });
   const [email, setEmail] = useState("");
   const [senhasIguais, setSenhasIguais] = useState("hidden");
-  const [showPassword, setShowPassword] = useState(false);
   const [emailValidado, setEmailValidado] = useState(false);
-  // Seleção de nome e sobrenome modal
-  const [nome, setNome] = useState("");
-  const [sobrenome, setSobrenome] = useState("");
-  const [alerta, setAlerta] = useState("");
   const [defaultValue, setDefaultValue] = useState("");
   const [contaErro, setContaErro] = useState("hidden");
   const [mensagemErro, setMensagemErro] = useState("");
   const [contaCriada, setContaCriada] = useState(false);
+  const [user, setUser] = useState("");
 
   const register = async () => {
     try {
@@ -45,18 +37,11 @@ export default function SignupModal(props) {
         email,
         senha.primeiraSenha
       );
+      setUser(user);
       setContaCriada(true);
     } catch (error) {
       setMensagemErro(error.message);
       setContaErro("show");
-    }
-  };
-
-  const handleSamePassword = () => {
-    if (senha.primeiraSenha === senha.segundaSenha) {
-      setSenhasIguais("hidden");
-    } else {
-      setSenhasIguais("show");
     }
   };
 
@@ -70,10 +55,6 @@ export default function SignupModal(props) {
     emailValidator();
   }, [email]);
 
-  useEffect(() => {
-    handleSamePassword();
-  }, [senha.segundaSenha]);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -86,10 +67,6 @@ export default function SignupModal(props) {
   useEffect(() => {
     setOpen(props.visibleOn);
   }, [props.visibleOn]);
-
-  const handleChangeCidade = (e) => {
-    setCidadeSelecionada(e.target.value);
-  };
 
   const handleChangePrimeiraSenha = (e) => {
     setSenha({ ...senha, primeiraSenha: e.target.value });

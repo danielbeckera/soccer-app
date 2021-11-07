@@ -1,21 +1,5 @@
 import { useState, useEffect } from "react";
-import {
-  Button,
-  TextField,
-  Checkbox,
-  DialogTitle,
-  DialogContent,
-  DialogContentText,
-  DialogActions,
-  Dialog,
-  Grid,
-  InputLabel,
-  Select,
-  MenuItem,
-  Box,
-  Alert,
-  CircularProgress,
-} from "@mui/material";
+import { Button, TextField, Checkbox, Alert } from "@mui/material";
 import "./Login.css";
 import video from "../assets/video.mp4";
 import SignupModal from "./SignupModal";
@@ -29,6 +13,7 @@ export default function Login(props) {
   const [erroAuth, setErroAuth] = useState("");
   const [contaLogada, setContaLogada] = useState(false);
   const [emailValidado, setEmailValidado] = useState(false);
+  const [user, setUser] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,6 +50,7 @@ export default function Login(props) {
         login.username,
         login.password
       );
+      setUser(user);
       console.log(user);
       setContaLogada(true);
     } catch (error) {
