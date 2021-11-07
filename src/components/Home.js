@@ -8,8 +8,9 @@ import {
   MenuItem,
   Menu,
 } from "@mui/material";
+import { withRouter } from "react-router-dom";
 
-export default function Home() {
+function Home() {
   const [authTst, setAuth] = useState(true);
   const [anchorEl, setAnchorEl] = useState(null);
 
@@ -62,13 +63,15 @@ export default function Home() {
             open={Boolean(anchorEl)}
             onClose={handleClose}
           >
-            <MenuItem>{auth.currentUser.email}</MenuItem>
             <MenuItem onClick={handleClose}>Perfil</MenuItem>
             <MenuItem onClick={handleClose}>Configurações</MenuItem>
             <MenuItem onClick={handleClose}>Sair</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
+      <h1>Voce so ve isso se estiver autenticado</h1>
     </>
   );
 }
+
+export default withRouter(Home);

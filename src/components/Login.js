@@ -3,8 +3,10 @@ import { Button, TextField, Checkbox, Alert } from "@mui/material";
 import "./Login.css";
 import video from "../assets/video.mp4";
 import SignupModal from "./SignupModal";
-import { getAuth, signInWithEmailAndPassword } from "@firebase/auth";
+import { getAuth, signInWithEmailAndPassword, signOut } from "@firebase/auth";
 import { auth } from "../firebase-config";
+import { Route, Redirect, Link, useHistory } from "react-router-dom";
+import Home from "./Home";
 
 export default function Login(props) {
   const [login, setLogin] = useState({ username: "", password: "" });
@@ -53,11 +55,31 @@ export default function Login(props) {
       setUser(user);
       console.log(user);
       setContaLogada(true);
+      contaLogada ? <Redirect to="/home" /> : <Redirect to="/" />;
     } catch (error) {
       setErroSenha("show");
       setErroAuth(error.message);
     }
   };
+
+  // Checa se user esta logado, se sim passa pra tela home
+  let history = useHistory();
+  useEffect(() => {
+    if (contaLogada) {
+      history.push("/home");
+    }
+  }, [contaLogada, history]);
+
+  const auth = getAuth();
+  const testelog = signOut(auth)
+    .then(() => {
+      // Sign-out successful.
+      console.log("signout successful");
+    })
+    .catch((error) => {
+      // An error happened.
+      console.log("error");
+    });
 
   return (
     <div className="page">
