@@ -3,7 +3,7 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import "./App.css";
-import { Route, BrowserRouter as Router, useHistory } from "react-router-dom";
+import { Route, BrowserRouter as Router } from "react-router-dom";
 import { Switch } from "react-router";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { auth } from "./firebase-config";

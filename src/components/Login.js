@@ -6,7 +6,6 @@ import SignupModal from "./SignupModal";
 import { getAuth, signInWithEmailAndPassword, signOut } from "@firebase/auth";
 import { auth } from "../firebase-config";
 import { Route, Redirect, Link, useHistory } from "react-router-dom";
-import Home from "./Home";
 
 export default function Login(props) {
   const [login, setLogin] = useState({ username: "", password: "" });
@@ -53,9 +52,7 @@ export default function Login(props) {
         login.password
       );
       setUser(user);
-      console.log(user);
       setContaLogada(true);
-      contaLogada ? <Redirect to="/home" /> : <Redirect to="/" />;
     } catch (error) {
       setErroSenha("show");
       setErroAuth(error.message);
@@ -67,25 +64,16 @@ export default function Login(props) {
   useEffect(() => {
     if (contaLogada) {
       history.push("/home");
+    } else {
+      history.push("/");
     }
   }, [contaLogada, history]);
 
-  const auth = getAuth();
-  const testelog = signOut(auth)
-    .then(() => {
-      // Sign-out successful.
-      console.log("signout successful");
-    })
-    .catch((error) => {
-      // An error happened.
-      console.log("error");
-    });
-
   return (
     <div className="page">
-      {/* <video autoPlay muted loop id="myVideo">
+      <video autoPlay muted loop id="myVideo">
         <source src={video} type="video/mp4"></source>
-      </video> */}
+      </video>
       <div className="container">
         {/* Componente do Modal de criação de conta sendo chamado*/}
         <SignupModal handleClose={handleClose} visibleOn={modalVisible} />

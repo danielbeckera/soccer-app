@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { auth } from "../firebase-config";
+import { getAuth, signOut } from "firebase/auth";
 import {
   AppBar,
   Toolbar,
@@ -7,23 +8,38 @@ import {
   Typography,
   MenuItem,
   Menu,
+  Button,
 } from "@mui/material";
-import { withRouter } from "react-router-dom";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+
+import { withRouter, useHistory } from "react-router-dom";
 
 function Home() {
-  const [authTst, setAuth] = useState(true);
-  const [anchorEl, setAnchorEl] = useState(null);
+  const [authTst, setAuth] = useState(null);
+  const [anchorEl, setAnchorEl] = useState(false);
 
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
   };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = () => {
-    setAnchorEl(null);
+  let history = useHistory();
+  const logout = () => {
+    const auth = getAuth();
+    signOut(auth)
+      .then(() => {
+        history.push("/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -40,36 +56,33 @@ function Home() {
             Soccer App
           </Typography>
 
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="menu-appbar"
+          <Button
+            id="basic-button"
+            aria-controls="basic-menu"
             aria-haspopup="true"
-            color="inherit"
-            onClick={handleMenu}
-          ></IconButton>
-          <Menu
-            id="menu-appbar"
-            anchorEl={anchorEl}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={Boolean(anchorEl)}
-            onClose={handleClose}
+            className="teste"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+            variant="contained"
+            endIcon={<KeyboardArrowDownIcon />}
           >
-            <MenuItem onClick={handleClose}>Perfil</MenuItem>
-            <MenuItem onClick={handleClose}>Configurações</MenuItem>
-            <MenuItem onClick={handleClose}>Sair</MenuItem>
+            {auth.currentUser.email}
+          </Button>
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={handleClose}>Profile</MenuItem>
+            <MenuItem onClick={handleClose}>My account</MenuItem>
+            <MenuItem onClick={logout}>Logout</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
-      <h1>Voce so ve isso se estiver autenticado</h1>
     </>
   );
 }
