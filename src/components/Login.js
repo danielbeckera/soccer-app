@@ -10,7 +10,7 @@ import { Route, Redirect, Link, useHistory } from "react-router-dom";
 export default function Login(props) {
   const [login, setLogin] = useState({ username: "", password: "" });
   const [modalVisible, setVisible] = useState(false);
-  const [erroSenha, setErroSenha] = useState("hidden");
+  const [erroSenha, setErroSenha] = useState(false);
   const [erroAuth, setErroAuth] = useState("");
   const [contaLogada, setContaLogada] = useState(false);
   const [emailValidado, setEmailValidado] = useState(false);
@@ -100,14 +100,12 @@ export default function Login(props) {
               name="password"
             />
             {erroSenha ? (
-              <Alert
-                sx={{ visibility: erroSenha }}
-                variant="filled"
-                severity="error"
-              >
+              <Alert variant="filled" severity="error">
                 {erroAuth}
               </Alert>
-            ) : null}
+            ) : (
+              <></>
+            )}
           </div>
           <div className="loginButton">
             <Button
@@ -121,10 +119,6 @@ export default function Login(props) {
             </Button>
           </div>
 
-          <div className="checkbox">
-            <Checkbox></Checkbox>
-            <p id="testee">Lembrar senha </p>
-          </div>
           <div className="signup">
             <p>
               Ainda não possui uma conta?{" "}

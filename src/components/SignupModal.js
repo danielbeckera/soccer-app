@@ -17,15 +17,12 @@ import { auth } from "../firebase-config";
 export default function SignupModal(props) {
   // Abertura do modal
   const [open, setOpen] = useState(props.visibleOn);
-  // Seleção do estado/cidade
-  const [estados, setEstados] = useState([]);
   // Seleção de email/senha do modal
   const [senha, setSenha] = useState({ primeiraSenha: "", segundaSenha: "" });
   const [email, setEmail] = useState("");
-  const [senhasIguais, setSenhasIguais] = useState("hidden");
   const [emailValidado, setEmailValidado] = useState(false);
   const [defaultValue, setDefaultValue] = useState("");
-  const [contaErro, setContaErro] = useState("hidden");
+  const [contaErro, setContaErro] = useState(false);
   const [mensagemErro, setMensagemErro] = useState("");
   const [contaCriada, setContaCriada] = useState(false);
   const [user, setUser] = useState("");
@@ -41,7 +38,7 @@ export default function SignupModal(props) {
       setContaCriada(true);
     } catch (error) {
       setMensagemErro(error.message);
-      setContaErro("show");
+      setContaErro(true);
     }
   };
 
@@ -86,7 +83,7 @@ export default function SignupModal(props) {
     setSenha({ ...senha, segundaSenha: "" });
     setEmail("");
     setContaCriada(false);
-    setContaErro("hidden");
+    setContaErro(false);
   };
 
   return (
@@ -160,21 +157,18 @@ export default function SignupModal(props) {
             </Box>
           </div>
           {contaCriada ? (
-            <Alert
-              sx={{ visibility: contaCriada }}
-              variant="filled"
-              severity="success"
-            >
+            <Alert variant="filled" severity="success">
               Conta criada com sucesso!
             </Alert>
           ) : (
-            <Alert
-              sx={{ visibility: contaErro }}
-              variant="filled"
-              severity="error"
-            >
+            <></>
+          )}
+          {contaErro ? (
+            <Alert variant="filled" severity="error">
               {mensagemErro}
             </Alert>
+          ) : (
+            <></>
           )}
         </DialogContent>
 
