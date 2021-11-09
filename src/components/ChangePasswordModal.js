@@ -11,8 +11,10 @@ import {
   Box,
   Alert,
 } from "@mui/material";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+
+import { createUserWithEmailAndPassword, updatePassword } from "firebase/auth";
 import { auth } from "../firebase-config";
+import './ChangePasswordModal.css'
 
 export default function SignupModal(props) {
   // Abertura do modal
@@ -24,23 +26,18 @@ export default function SignupModal(props) {
   const [defaultValue, setDefaultValue] = useState("");
   const [contaErro, setContaErro] = useState(false);
   const [mensagemErro, setMensagemErro] = useState("");
-  const [contaCriada, setContaCriada] = useState(false);
+  const [senhaAlterada, setSenhaAlterada] = useState(false);
   const [user, setUser] = useState("");
 
-  const register = async () => {
-    try {
-      const user = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        senha.primeiraSenha
-      );
-      setUser(user);
-      setContaCriada(true);
-    } catch (error) {
-      setMensagemErro(error.message);
-      setContaErro(true);
-    }
-  };
+  const changePassword = () => {
+      updatePassword(auth.currentUser, senha.primeiraSenha).then(() => {
+          console.log("Password changed");
+          setSenhaAlterada(true)
+      }).catch((error) => {
+          setMensagemErro(error)
+          console.log(error);
+      })
+  }
 
   const emailValidator = () => {
     /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/.test(email)
@@ -81,9 +78,7 @@ export default function SignupModal(props) {
     props.handleClose();
     setSenha({ ...senha, primeiraSenha: "" });
     setSenha({ ...senha, segundaSenha: "" });
-    setEmail("");
-    setContaCriada(false);
-    setContaErro(false);
+    setSenhaAlterada(false)
   };
 
   return (
@@ -92,20 +87,7 @@ export default function SignupModal(props) {
         <DialogTitle>{props.title}</DialogTitle>
         <DialogContent>
           <DialogContentText>Preencha os dados obrigatórios.</DialogContentText>
-          <div className="inputsFormCreateAccount-3">
-            <Grid container justifyContent="center">
-              <TextField
-                style={{ minWidth: 410 }}
-                margin="dense"
-                id="email"
-                label="Email"
-                required
-                type="email"
-                variant="standard"
-                onChange={handleChangeEmail}
-              />
-            </Grid>
-          </div>
+          
           <div className="inputsFormCreateAccount-4">
             <Box m={1} mr={0}>
               {senha.primeiraSenha !== senha.segundaSenha &&
@@ -156,9 +138,9 @@ export default function SignupModal(props) {
               )}
             </Box>
           </div>
-          {contaCriada ? (
+          {senhaAlterada ? (
             <Alert variant="filled" severity="success">
-              Conta criada com sucesso!
+              Senha alterada com sucesso!
             </Alert>
           ) : (
             <></>
@@ -180,10 +162,9 @@ export default function SignupModal(props) {
             disabled={
               senha.primeiraSenha !== senha.segundaSenha ||
               senha.primeiraSenha === "" ||
-              senha.segundaSenha === "" ||
-              emailValidado === false
+              senha.segundaSenha === ""
             }
-            onClick={register}
+            onClick={changePassword}
             variant="contained"
           >
             {props.nomeButton}

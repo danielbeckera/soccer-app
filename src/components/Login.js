@@ -76,7 +76,7 @@ export default function Login(props) {
       </video>
       <div className="container">
         {/* Componente do Modal de criação de conta sendo chamado*/}
-        <SignupModal handleClose={handleClose} visibleOn={modalVisible} />
+        <SignupModal title="Crie sua conta!" handleClose={handleClose} visibleOn={modalVisible} />
         <div className="login-box">
           <div className="username">
             <TextField

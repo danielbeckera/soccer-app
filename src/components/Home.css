@@ -1,3 +1,10 @@
-.teste {
-  color: red;
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+ 
+}
+
+.logo {
+
+  margin-right: auto;
 }

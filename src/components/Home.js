@@ -10,13 +10,17 @@ import {
   Menu,
   Button,
 } from "@mui/material";
-import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import './Home.css'
+import ChangePasswordModal from "./ChangePasswordModal";
 
 import { withRouter, useHistory } from "react-router-dom";
 
 function Home() {
   const [authTst, setAuth] = useState(null);
   const [anchorEl, setAnchorEl] = useState(false);
+  const [modalVisible, setVisible] = useState(false);
+
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -25,6 +29,14 @@ function Home() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
+  const handleCloseModal = () => {
+    setVisible(false);
+  };
+
+  const handleOpenModal = () => {
+    setVisible(true);
+  }
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
@@ -45,29 +57,17 @@ function Home() {
   return (
     <>
       <AppBar position="static">
-        <Toolbar variant="dense">
+        <Toolbar className="toolbar" variant="dense">
           <IconButton
             edge="start"
             color="inherit"
             aria-label="menu"
             sx={{ mr: 2 }}
           ></IconButton>
-          <Typography variant="h6" color="inherit" component="div">
+          <Typography className="logo" variant="h6" color="inherit" component="div">
             Soccer App
           </Typography>
-
-          <Button
-            id="basic-button"
-            aria-controls="basic-menu"
-            aria-haspopup="true"
-            className="teste"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-            variant="contained"
-            endIcon={<KeyboardArrowDownIcon />}
-          >
-            {auth.currentUser.email}
-          </Button>
+          <AccountCircleIcon onClick={handleClick}/>
           <Menu
             id="basic-menu"
             anchorEl={anchorEl}
@@ -77,12 +77,13 @@ function Home() {
               "aria-labelledby": "basic-button",
             }}
           >
-            <MenuItem onClick={handleClose}>Profile</MenuItem>
-            <MenuItem onClick={handleClose}>My account</MenuItem>
-            <MenuItem onClick={logout}>Logout</MenuItem>
+            <MenuItem onClick={handleOpenModal}>Alterar senha</MenuItem>
+            <MenuItem onClick={logout}>Sair</MenuItem>
           </Menu>
         </Toolbar>
       </AppBar>
+      <ChangePasswordModal nomeButton="Alterar senha" title="Altere sua senha!" handleClose={handleCloseModal} visibleOn={modalVisible} />
+
     </>
   );
 }
