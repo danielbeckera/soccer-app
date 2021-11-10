@@ -57,7 +57,7 @@ function Home() {
 
   return (
     <>
-      <Header item1="Home" item2="About us" />
+      <Header item1="Brasileirão Série A" item2="Brasileirão Série B" item3="Libertadores" />
 
       
     </>

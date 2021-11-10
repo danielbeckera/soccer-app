@@ -38,10 +38,6 @@ function Home(props) {
     setVisible(true);
   }
 
-  const handleMenu = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
   let history = useHistory();
   const logout = () => {
     const auth = getAuth();
@@ -56,7 +52,7 @@ function Home(props) {
 
   return (
     <>
-      <AppBar position="static">
+      <AppBar style={{ background: 'green' }} position="static">
         <Toolbar className="toolbar" variant="dense">
           <Typography id="logo" variant="h6" color="inherit" component="div">
             Soccer App
@@ -80,10 +76,8 @@ function Home(props) {
             <MenuItem onClick={logout}>Sair</MenuItem>
           </Menu>
         </Toolbar>
-
       </AppBar>
       <ChangePasswordModal nomeButton="Alterar senha" title="Altere sua senha!" handleClose={handleCloseModal} visibleOn={modalVisible} />
-
     </>
   );
 }

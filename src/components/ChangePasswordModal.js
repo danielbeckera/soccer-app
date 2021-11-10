@@ -158,6 +158,7 @@ export default function SignupModal(props) {
             CANCELAR
           </Button>
           <Button
+          style={{ background: 'green' }}
             disabled={
               senha.primeiraSenha !== senha.segundaSenha ||
               senha.primeiraSenha === "" ||

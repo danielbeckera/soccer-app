@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, TextField, Checkbox, Alert } from "@mui/material";
 import "./Login.css";
-import video from "../assets/video.mp4";
+// import video from "../assets/video.mp4";
 import SignupModal from "./SignupModal";
 import { getAuth, signInWithEmailAndPassword, signOut } from "@firebase/auth";
 import { auth } from "../firebase-config";
@@ -71,9 +71,9 @@ export default function Login(props) {
 
   return (
     <div className="page">
-      <video autoPlay muted loop id="myVideo">
+      {/* <video autoPlay muted loop id="myVideo">
         <source src={video} type="video/mp4"></source>
-      </video>
+      </video> */}
       <div className="container">
         {/* Componente do Modal de criação de conta sendo chamado*/}
         <SignupModal title="Crie sua conta!" handleClose={handleClose} visibleOn={modalVisible} nomeButton="Criar conta" />
