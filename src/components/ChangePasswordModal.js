@@ -7,12 +7,11 @@ import {
   DialogContentText,
   DialogActions,
   Dialog,
-  Grid,
   Box,
   Alert,
 } from "@mui/material";
 
-import { createUserWithEmailAndPassword, updatePassword } from "firebase/auth";
+import { updatePassword } from "firebase/auth";
 import { auth } from "../firebase-config";
 import './ChangePasswordModal.css'
 

@@ -1,0 +1,21 @@
+li {
+    list-style: none;
+}
+
+.toolbar {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.navBar {
+    display: flex;
+}
+
+.navBar li {
+    padding: 10px;
+}
+
+#logo {
+    margin-left: auto;
+}
+  

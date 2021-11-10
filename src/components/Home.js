@@ -13,6 +13,7 @@ import {
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './Home.css'
 import ChangePasswordModal from "./ChangePasswordModal";
+import Header from "./Header"
 
 import { withRouter, useHistory } from "react-router-dom";
 
@@ -56,34 +57,9 @@ function Home() {
 
   return (
     <>
-      <AppBar position="static">
-        <Toolbar className="toolbar" variant="dense">
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          ></IconButton>
-          <Typography className="logo" variant="h6" color="inherit" component="div">
-            Soccer App
-          </Typography>
-          <AccountCircleIcon onClick={handleClick}/>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            <MenuItem onClick={handleOpenModal}>Alterar senha</MenuItem>
-            <MenuItem onClick={logout}>Sair</MenuItem>
-          </Menu>
-        </Toolbar>
-      </AppBar>
-      <ChangePasswordModal nomeButton="Alterar senha" title="Altere sua senha!" handleClose={handleCloseModal} visibleOn={modalVisible} />
+      <Header item1="Home" item2="About us" />
 
+      
     </>
   );
 }
