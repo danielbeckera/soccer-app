@@ -57,9 +57,7 @@ function Home() {
 
   return (
     <>
-      <Header item1="Brasileirão Série A" item2="Brasileirão Série B" item3="Libertadores" />
-
-      
+      <Header links={["Brasileirão Série A", 'Brasileirão Série B', 'Libertadores']} />  
     </>
   );
 }

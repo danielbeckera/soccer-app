@@ -58,9 +58,7 @@ function Home(props) {
             Soccer App
           </Typography>
                 <ul className="navBar">
-                    <li>{props.item1}</li>
-                    <li>{props.item2}</li>
-                    <li>{props.item3}</li>
+                    {props.links.map(link => <li>{link}</li>)}
                 </ul>
             <AccountCircleIcon onClick={handleClick}/>
           <Menu
