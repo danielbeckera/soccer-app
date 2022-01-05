@@ -14,7 +14,7 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './Home.css'
 import ChangePasswordModal from "./ChangePasswordModal";
 import Header from "./Header"
-import CustomizedTables from "./Test";
+import EnhancedTable from "./Test";
 
 
 import { withRouter, useHistory } from "react-router-dom";
@@ -61,7 +61,7 @@ function Home() {
     <>
       <Header links={["Brasileirão Série A", 'Brasileirão Série B', 'Libertadores']} />
       <div>
-      <CustomizedTables></CustomizedTables>
+      <EnhancedTable></EnhancedTable>
       </div>
     </>
   );
