@@ -14,6 +14,8 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import './Home.css'
 import ChangePasswordModal from "./ChangePasswordModal";
 import Header from "./Header"
+import CustomizedTables from "./Test";
+
 
 import { withRouter, useHistory } from "react-router-dom";
 
@@ -57,7 +59,10 @@ function Home() {
 
   return (
     <>
-      <Header links={["Brasileirão Série A", 'Brasileirão Série B', 'Libertadores']} />  
+      <Header links={["Brasileirão Série A", 'Brasileirão Série B', 'Libertadores']} />
+      <div>
+      <CustomizedTables></CustomizedTables>
+      </div>
     </>
   );
 }
